@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "pages": [
+    "(root)",
+    "essentials",
+    "authentication",
+    "session-keys",
+    "abstract-portal",
+    "config",
+    "experimental"
+  ]
+}

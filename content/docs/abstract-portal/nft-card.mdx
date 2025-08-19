@@ -1,0 +1,137 @@
+---
+title: NFT Card
+description: A single NFT card component that displays an NFT with image, name, collection, and balance
+---
+
+<ComponentPreview name="nft-card" />
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://build.abs.xyz/r/nft-card.json"
+```
+
+## Usage
+
+
+```tsx
+"use client"
+
+import { NFTCard } from "@/components/nft-card"
+import { useNFTs } from "@/hooks/use-nfts"
+
+export default function FirstNFT() {
+  const address = "0x1C67724aCc76821C8aD1f1F87BA2751631BAbD0c"
+  const { data, isLoading, error } = useNFTs(address)
+  
+  if (isLoading) return <div>Loading NFT...</div>
+  if (error) return <div>Error loading NFT</div>
+  if (!data?.nfts?.length) return <div>No NFTs found</div>
+  
+  return (
+    <NFTCard nft={data.nfts[0]} />
+  )
+}
+```
+
+### With Connected Wallet
+
+```tsx
+"use client"
+
+import { NFTCard } from "@/components/nft-card"
+import { useNFTs } from "@/hooks/use-nfts"
+import { useAccount } from "wagmi"
+
+export default function UserNFT() {
+  const { address } = useAccount()
+  const { data, isLoading, error } = useNFTs(address || "")
+  
+  if (!address) {
+    return <p>Connect your wallet to view your NFTs</p>
+  }
+  
+  if (isLoading) return <div>Loading NFT...</div>
+  if (error) return <div>Error loading NFT</div>
+  if (!data?.nfts?.length) return <div>No NFTs found</div>
+  
+  return (
+    <NFTCard nft={data.nfts[0]} showCollectionName={true} />
+  )
+}
+```
+
+### Multiple NFT Cards
+
+```tsx
+"use client"
+
+import { NFTCard } from "@/components/nft-card"
+import { useNFTs } from "@/hooks/use-nfts"
+import { useAccount } from "wagmi"
+
+export default function NFTGrid() {
+  const { address } = useAccount()
+  const { data, isLoading, error } = useNFTs(address || "")
+  
+  if (isLoading) return <div>Loading NFTs...</div>
+  if (error) return <div>Error loading NFTs</div>
+  if (!data?.nfts?.length) return <div>No NFTs found</div>
+  
+  const filteredNfts = data.nfts
+    .filter(nft => !nft.collection?.name?.toLowerCase().includes("abscash"))
+    .slice(0, 6)
+  
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {filteredNfts.map((nft) => (
+        <NFTCard 
+          key={nft.id} 
+          nft={nft} 
+          showCollectionName={false}
+          className="hover:shadow-lg transition-shadow w-16 h-16"
+        />
+      ))}
+    </div>
+  )
+}
+```
+
+## What's included
+
+This command installs the following files:
+
+- `/components`
+  - [`nft-card.tsx`](#nft-cardtsx) - Individual NFT card component for displaying a single NFT
+
+- `/hooks`
+  - [`use-nfts.ts`](#use-nftsts) - Hook for fetching NFT data from Abstract backend
+
+- `/types`
+  - [`nfts.ts`](#typesnftsts) - TypeScript definitions for NFT data structures
+
+### `nft-card.tsx`
+
+A single NFT card component that displays an NFT with image, name, collection, and balance. Includes hover effects, loading states for images, and responsive design.
+
+<ComponentSource src="registry/new-york/blocks/nft-card/nft-card.tsx" />
+
+#### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `nft` | `NFT` | - | The NFT object to display |
+| `showCollectionName` | `boolean` | `true` | Display collection name under the NFT name |
+| `className` | `string` | `undefined` | Additional CSS classes for the card |
+
+### `use-nfts.ts`
+
+A React Query-powered hook for fetching NFT data from the Abstract backend with built-in caching, error handling, and retry logic.
+
+<ComponentSource src="registry/new-york/blocks/nft-card/hooks/use-nfts.ts" />
+
+### `types/nfts.ts`
+
+TypeScript interfaces for NFT data structures based on the Abstract backend API response format.
+
+<ComponentSource src="/types/nfts.ts" />

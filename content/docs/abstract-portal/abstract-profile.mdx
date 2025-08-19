@@ -1,0 +1,197 @@
+---
+title: Abstract Profile
+description: A profile component that displays user profile pictures from Abstract Portal with tier-based styling and loading states
+---
+
+<ComponentPreview name="abstract-profile" />
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://build.abs.xyz/r/abstract-profile.json"
+```
+
+## Usage
+
+The component automatically uses the connected wallet address:
+
+```tsx
+import { AbstractProfile } from "@/components/abstract-profile"
+
+export default function AbstractProfileDemo() {
+  return (
+    <AbstractProfile />
+  )
+}
+```
+
+### Custom Address
+
+Display a profile for a specific wallet address:
+
+```tsx
+import { AbstractProfile } from "@/components/abstract-profile"
+
+export default function CustomAddressProfile() {
+  return (
+    <AbstractProfile address="0x1C67724aCc76821C8aD1f1F87BA2751631BAbD0c" />
+  )
+}
+```
+
+### Size Variants
+
+The component supports three size variants:
+
+```tsx
+import { AbstractProfile } from "@/components/abstract-profile"
+
+export default function ProfileSizes() {
+  return (
+    <div className="flex items-center gap-4">
+      <AbstractProfile size="sm" />
+      <AbstractProfile size="md" />
+      <AbstractProfile size="lg" />
+    </div>
+  )
+}
+```
+
+### Custom Styling
+
+Override the tier-based border color with a custom color:
+
+```tsx
+import { AbstractProfile } from "@/components/abstract-profile"
+
+export default function CustomStyledProfile() {
+  return (
+    <AbstractProfile 
+      shineColor="#8B5CF6" 
+      fallback="JS" 
+    />
+  )
+}
+```
+
+### Without Tooltip
+
+Disable the tooltip that shows the display name:
+
+```tsx
+import { AbstractProfile } from "@/components/abstract-profile"
+
+export default function ProfileWithoutTooltip() {
+  return (
+    <AbstractProfile showTooltip={false} />
+  )
+}
+```
+
+### Using Hooks Directly
+
+Access profile data directly with the provided hooks:
+
+<CodeCollapsibleWrapper>
+```tsx
+"use client";
+
+import { useAbstractProfile } from "@/hooks/use-abstract-profile";
+import { getTierName } from "@/lib/tier-colors";
+
+export default function ProfileDataDemo() {
+  const { data: profile, isLoading, error } = useAbstractProfile();
+
+  if (error) {
+    return <div className="text-red-500">Failed to load profile</div>;
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Connected wallet profile */}
+      <div className="border rounded-lg p-4">
+        <h3 className="font-semibold mb-3">Connected Wallet Profile</h3>
+        {isLoading ? (
+          <div className="animate-pulse">Loading profile...</div>
+        ) : profile ? (
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div>
+                <p className="font-medium">{profile.user.name}</p>
+                <p className="text-sm text-muted-foreground">
+                  {getTierName(profile.user.tier)} Tier •{" "}
+                  {profile.user.badges.length} badges
+                </p>
+              </div>
+            </div>
+
+            {profile.user.description && (
+              <p className="text-sm">{profile.user.description}</p>
+            )}
+          </div>
+        ) : (
+          <p className="text-muted-foreground">
+            No profile found for connected wallet
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+</CodeCollapsibleWrapper>
+
+## What's included
+
+This command installs the following files:
+
+- `/components`
+  - [`abstract-profile.tsx`](#abstract-profiletsx) - The main profile component with tier-based styling
+
+- `/hooks`
+  - [`use-abstract-profile.ts`](#use-abstract-profilets) - React Query hooks for fetching profile data
+
+- `/lib`
+  - [`get-user-profile.ts`](#get-user-profilets) - API utility for fetching user profiles from Abstract Portal
+  - [`tier-colors.ts`](#tier-colorsts) - Tier color mapping and utilities
+  - [`address-utils.ts`](#address-utilsts) - Address formatting utilities
+
+### `abstract-profile.tsx`
+
+A profile component that displays user profile pictures from Abstract Portal with automatic tier-based border styling, loading states, and fallback support.
+
+<ComponentSource src="registry/new-york/blocks/abstract-profile/abstract-profile.tsx" />
+
+#### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `address` | `string` | `undefined` | Optional wallet address to display profile for (defaults to connected wallet) |
+| `fallback` | `string` | First 2 chars of address | Fallback text to display if image fails to load |
+| `shineColor` | `string` | Tier-based color | Custom border color (overrides tier color) |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Avatar size variant |
+| `showTooltip` | `boolean` | `true` | Whether to show tooltip with display name on hover |
+
+### `use-abstract-profile.ts`
+
+React Query hooks for fetching Abstract Portal profile data.
+
+<ComponentSource src="registry/new-york/blocks/abstract-profile/hooks/use-abstract-profile.ts" />
+
+### `tier-colors.ts`
+
+Utilities for mapping Abstract Portal tier levels to their corresponding colors (Bronze, Silver, Gold, Platinum, Diamond).
+
+<ComponentSource src="registry/new-york/blocks/abstract-profile/lib/tier-colors.ts" />
+
+### `address-utils.ts`
+
+Address formatting utilities for displaying wallet addresses in a user-friendly format.
+
+<ComponentSource src="registry/new-york/blocks/abstract-profile/lib/address-utils.ts" />
+
+### `get-user-profile.ts`
+
+API utility function for fetching user profile data from the Abstract Portal API.
+
+<ComponentSource src="registry/new-york/blocks/abstract-profile/lib/get-user-profile.ts" />

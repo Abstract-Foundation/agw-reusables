@@ -1,0 +1,65 @@
+---
+title: AGW Provider
+description: An AGW wrapper component for using AGW Reusables.
+---
+
+_**Note**: this component is already configured as part of the [installation process](/docs)._
+
+The **AGW Provider** wraps your application in the required provider components ([wagmi](https://wagmi.sh/react/api/WagmiProvider) and [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClientProvider)) required to use the features of AGW Reusables.
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://build.abs.xyz/r/agw-provider.json"
+```
+
+## Usage
+
+Wrap your entire application with the AGW Provider in your root layout:
+
+```tsx title="app/layout.tsx" showLineNumbers {1,2,8,11,13}
+import { NextAbstractWalletProvider } from "@/components/agw-provider";
+import { Toaster } from "@/components/ui/sonner";
+import "./globals.css";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <NextAbstractWalletProvider>
+        <body>
+          {children}
+          <Toaster />
+        </body>
+      </NextAbstractWalletProvider>
+    </html>
+  );
+}
+```
+
+
+## What's included
+
+This command installs the following files:
+
+- [`components/agw-provider.tsx`](#agw-providertsx) - The main AGW Provider component
+- [`config/chain.ts`](#chaints) - Environment-aware chain configuration for Abstract networks
+- [`config/viem-clients.ts`](#viem-clientsts) - Pre-configured Viem clients for ZK Stack chains
+
+
+### `agw-provider.tsx`
+
+A wrapper component to enable the use of AGW Reusables, wagmi, and Tanstack Query.
+
+<ComponentSource src="registry/new-york/blocks/agw-provider/agw-provider.tsx" />
+
+### `chain.ts`
+
+A global `chain` constant that is environmentally aware and automatically selects the appropriate Abstract network (testnet for local development, mainnet for production).
+
+<ComponentSource src="config/chain.ts" />
+
+### `viem-clients.ts`
+
+Viem includes [ZK stack specific extensions](https://viem.sh/zksync); this file contains a pre-configured Viem public and wallet client configurations for ZK Stack chains (i.e., Abstract).
+
+<ComponentSource src="config/viem-clients.ts" />

@@ -1,0 +1,71 @@
+---
+title: Connect Wallet Button
+description: A button that prompts users to connect to the application with their Abstract Global Wallet.
+---
+
+<ComponentPreview name="connect-wallet-button" />
+
+
+## Installation
+
+Ensure you have installed and setup the [AGW Provider](/docs/essentials/agw-provider) wrapper component first.
+
+```bash
+npx shadcn@latest add "https://build.abs.xyz/r/connect-wallet-button.json"
+```
+
+## Usage
+
+```tsx
+import { ConnectWalletButton } from "@/components/connect-wallet-button"
+
+export default function ConnectWalletButtonDemo() {
+  return (
+    <ConnectWalletButton />
+  )
+}
+```
+
+### Custom Dropdown Items
+
+```tsx
+import { ConnectWalletButton } from "@/components/connect-wallet-button"
+import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
+
+export default function CustomConnectWalletButton() {
+  return (
+    <ConnectWalletButton 
+      customDropdownItems={[
+        <DropdownMenuSeparator key="separator" />,
+        <DropdownMenuItem key="profile">
+          View Profile
+        </DropdownMenuItem>,
+        <DropdownMenuItem key="settings">
+          Settings
+        </DropdownMenuItem>,
+        <DropdownMenuItem key="disconnect" className="text-destructive">
+          Disconnect
+        </DropdownMenuItem>
+      ]}
+    />
+  )
+}
+```
+
+## What's included
+
+The installation command adds the following file to your project:
+
+- [`connect-wallet-button.tsx`](#connect-wallet-buttontsx) - The button component with all states and functionality
+
+### `connect-wallet-button.tsx`
+
+A button that prompts users to connect to the application with their [Abstract Global Wallet](https://docs.abs.xyz/abstract-global-wallet/overview). 
+
+<ComponentSource src="registry/new-york/blocks/connect-wallet-button/connect-wallet-button.tsx" />
+
+#### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `customDropdownItems` | `React.ReactNode[]` | `undefined` | Custom dropdown menu items to replace the default disconnect option |

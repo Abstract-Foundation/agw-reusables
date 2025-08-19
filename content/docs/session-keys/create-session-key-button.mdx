@@ -1,0 +1,249 @@
+---
+title: Session Key Management
+description: A comprehensive session key management system that enables transactions without requiring user signatures for each transaction.
+---
+
+import { Steps, Step } from "@/components/ui/steps";
+
+<ComponentPreview name="session-keys" />
+
+## Installation
+
+Ensure you have installed and setup the [AGW Provider](/docs/essentials/agw-provider) wrapper component first.
+
+<Steps className="mt-8">
+  <Step step={1} title="Install the component">
+    ```bash
+    npx shadcn@latest add "https://build.abs.xyz/r/session-keys.json"
+    ```
+  </Step>
+
+  <Step
+    step={2}
+    title="Configure session policies for your contracts"
+  >
+    Update your session key policies in <a href="#session-key-policiests">`session-key-policies.ts`</a> with your contract addresses, function selectors, limits, and any constraints.
+    
+    For mainnet deployments, review the <a className="underline" href="https://docs.abs.xyz/abstract-global-wallet/session-keys/going-to-production" target="_blank" rel="noreferrer">going to production</a> guide for policy restrictions, requirements, and best practices.
+  </Step>
+</Steps>
+
+## Usage
+
+The basic session key button that handles the complete lifecycle:
+
+```tsx
+import { SessionKeyButton } from "@/components/session-key-button"
+
+export default function SessionKeyButtonDemo() {
+  return (
+    <SessionKeyButton />
+  )
+}
+```
+
+### Using Hooks Directly
+
+Access session key functionality with the provided hooks:
+
+<CodeCollapsibleWrapper>
+```tsx
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { useAccount } from "wagmi";
+import { useSessionKey } from "@/hooks/use-session-key";
+import { useCreateSessionKey } from "@/hooks/use-create-session-key";
+import { useRevokeSessionKey } from "@/hooks/use-revoke-session-key";
+import { ConnectWalletButton } from "@/components/connect-wallet-button";
+
+export default function SessionKeyHooksDemo() {
+  const { isConnected } = useAccount();
+  const { data: sessionData, isLoading } = useSessionKey();
+  const createSessionMutation = useCreateSessionKey();
+  const { revokeSession, isPending: isRevoking } = useRevokeSessionKey();
+
+  const hasActiveSession = !!sessionData;
+
+  return (
+    <div className="w-full max-w-md space-y-4">
+      <div className="space-y-4">
+        {!isConnected ? (
+          <ConnectWalletButton />
+        ) : !hasActiveSession ? (
+          <Button
+            onClick={() => createSessionMutation.mutate()}
+            disabled={createSessionMutation.isPending || isLoading}
+            className="w-full"
+          >
+            {createSessionMutation.isPending
+              ? "Creating..."
+              : "Create Session Key"}
+          </Button>
+        ) : (
+          <Button
+            onClick={() =>
+              sessionData?.session && revokeSession(sessionData.session)
+            }
+            disabled={isRevoking}
+            variant="destructive"
+            className="w-full"
+          >
+            {isRevoking ? "Revoking..." : "Revoke Session Key"}
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+</CodeCollapsibleWrapper>
+
+### Submitting Transactions with Session Keys
+
+Use the session key transaction hook for seamless transactions without signatures:
+
+<CodeCollapsibleWrapper>
+```tsx
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { useSessionKeyTransaction } from "@/hooks/use-session-key-transaction";
+import { toast } from "sonner";
+import { useAccount } from "wagmi";
+
+// Example contract ABI (replace with your contract's ABI)
+const EXAMPLE_CONTRACT_ABI = [
+  {
+    name: "mint",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [
+      { name: "to", type: "address" },
+      { name: "amount", type: "uint256" },
+    ],
+    outputs: [],
+  },
+] as const;
+
+export default function SessionKeyTransactionDemo() {
+  const { address } = useAccount();
+  const { mutate: submitTransaction, isPending } = useSessionKeyTransaction({
+    onSuccess: (data) => {
+      toast.success(`Transaction successful! Hash: ${data.hash}`);
+    },
+    onError: (error) => {
+      toast.error(`Transaction failed: ${error.message}`);
+    },
+  });
+
+  const handleMintToken = () => {
+    submitTransaction({
+      abi: EXAMPLE_CONTRACT_ABI,
+      address: "0xC4822AbB9F05646A9Ce44EFa6dDcda0Bf45595AA", // Contract address
+      functionName: "mint",
+      args: [address!, BigInt(1)],
+    });
+  };
+
+  return (
+    <div className="space-y-4">
+      <h3>Submit Transaction Without Signature</h3>
+      <Button onClick={handleMintToken} disabled={isPending}>
+        {isPending ? "Minting..." : "Mint Token (No Signature Required)"}
+      </Button>
+    </div>
+  );
+}
+```
+</CodeCollapsibleWrapper>
+
+
+## What's included
+
+This command installs the following files:
+
+- `/components`
+  - [`session-key-button.tsx`](#session-key-buttontsx) - The main session key management button
+
+- `/hooks`
+  - [`use-session-key.ts`](#use-session-keyts) - Hook for retrieving and validating stored sessions
+  - [`use-create-session-key.ts`](#use-create-session-keyts) - Hook for creating new session keys
+  - [`use-revoke-session-key.ts`](#use-revoke-session-keyts) - Hook for revoking existing session keys
+  - [`use-session-key-transaction.ts`](#use-session-key-transactionts) - Hook for submitting transactions without signatures
+
+- `/lib`
+  - [`get-stored-session-key.ts`](#get-stored-session-keyts) - Utility for retrieving stored session data
+  - [`create-and-store-session-key.ts`](#create-and-store-session-keyts) - Utility for creating and storing sessions
+  - [`clear-stored-session-key.ts`](#clear-stored-session-keyts) - Utility for clearing stored sessions
+  - [`session-encryption-utils.ts`](#session-encryption-utilsts) - Encryption utilities for secure storage
+  - [`validate-session-key.ts`](#validate-session-keyts) - Validation utilities for session keys
+
+- `/config`
+  - [`session-key-policies.ts`](#session-key-policists) - Configuration file to define which contracts and functions your session keys can interact with.
+
+### `session-key-button.tsx`
+
+A comprehensive session key management button that handles wallet connection, session creation, validation, and revocation with loading states and error handling.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/session-key-button.tsx" />
+
+### `use-session-key.ts`
+
+React Query hook for retrieving and validating stored Abstract sessions.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/hooks/use-session-key.ts" />
+
+### `use-create-session-key.ts`
+
+React Query mutation hook for creating and storing new Abstract session keys.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/hooks/use-create-session-key.ts" />
+
+### `use-revoke-session-key.ts`
+
+React Query mutation hook for revoking existing session keys and cleaning up stored data.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/hooks/use-revoke-session-key.ts" />
+
+### `use-session-key-transaction.ts`
+
+Type-safe React Query mutation hook for submitting contract transactions using session keys. Provides type-safety given a smart contract ABI.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/hooks/use-session-key-transaction.ts" />
+
+### `session-key-policies.ts`
+
+Configuration file defining which contracts and functions session keys are authorized to interact with, including gas limits and expiration settings.
+
+<ComponentSource src="config/session-key-policies.ts" />
+
+### `get-stored-session-key.ts`
+
+Utility function for retrieving and validating stored session key data from local storage with decryption and validation.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/lib/get-stored-session-key.ts" />
+
+### `create-and-store-session-key.ts`
+
+Utility function for creating new session keys and securely storing them in local storage with encryption.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/lib/create-and-store-session-key.ts" />
+
+### `clear-stored-session-key.ts`
+
+Utility function for clearing stored session key data from local storage during revocation or cleanup.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/lib/clear-stored-session-key.ts" />
+
+### `session-encryption-utils.ts`
+
+Encryption and decryption utilities for securely storing session key data in local storage.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/lib/session-encryption-utils.ts" />
+
+### `validate-session-key.ts`
+
+Validation utilities for verifying session key integrity, expiration, and authorization status.
+
+<ComponentSource src="registry/new-york/blocks/session-keys/lib/validate-session-key.ts" />

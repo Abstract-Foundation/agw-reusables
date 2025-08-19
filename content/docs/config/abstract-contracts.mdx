@@ -1,0 +1,130 @@
+---
+title: Abstract Contracts
+description: Common contract addresses and ABIs for tokens and DEX infrastructure on Abstract with utility functions for network-aware address resolution
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://build.abs.xyz/r/abstract-contracts.json"
+```
+
+## Usage
+
+Access contract addresses directly.
+
+```tsx
+import { ABSTRACT_CONTRACTS } from "@/config/abstract-contracts"
+
+const wethMainnet = ABSTRACT_CONTRACTS.tokens.weth.addresses.mainnet
+// "0x3439153EB7AF838Ad19d56E1571FBD09333C2809"
+
+const usdcTestnet = ABSTRACT_CONTRACTS.tokens.usdc.addresses.testnet
+// "0xe4C7fBB0a626ed208021ccabA6Be1566905E2dFc"
+```
+
+### Specify chain ID
+
+Get contract addresses for mainnet or testnet specifically.
+
+```tsx
+import { ABSTRACT_CONTRACTS } from "@/config/abstract-contracts";
+import { getContract, getContractAddress } from "@/lib/chain-utils";
+import { abstract, abstractTestnet } from "viem/chains";
+
+// Get contract for specific chain
+const wethMainnet = getContract("weth", abstract.id);
+const wethTestnet = getContract("weth", abstractTestnet.id);
+
+// Get just address for specific chain
+const usdcMainnetAddress = getContractAddress(
+  ABSTRACT_CONTRACTS.tokens.usdc.addresses,
+  abstract.id
+);
+
+```
+
+### Network-aware Address Resolution
+
+Get contract addresses for the currently active chain (mainnet or testnet).
+
+```tsx
+// Automatically uses mainnet or testnet based on config
+import { getContractWithCurrentChain, getContractAddressWithCurrentChain } from "@/lib/chain-utils"
+
+const wethContract = getContractWithCurrentChain("weth") // Returns an object with metadata
+console.log(wethContract.address) // Just the contract address
+
+// Get just the contract address for the current chain
+const usdcAddress = getContractAddressWithCurrentChain("usdc")
+```
+
+### Network Utilities
+
+Some helpful utility functions for working with Abstract networks.
+
+```tsx
+import { isAbstractNetwork, getNetworkName } from "@/lib/chain-utils"
+
+// Check if chain ID is supported
+if (isAbstractNetwork(chainId)) {
+  const networkName = getNetworkName(chainId)
+  console.log(`Connected to ${networkName}`)
+}
+```
+
+## What's included
+
+This command installs the following files:
+
+- `/config`
+  - [`abstract-contracts.ts`](#abstract-contractsts) - Contract addresses, ABIs, and configuration
+- `/lib`
+  - [`chain-utils.ts`](#chain-utilsts) - Network-aware utility functions for address resolution
+- `/types`
+  - [`contracts.ts`](#typescontractsts) - Contract addresses, ABIs, and configuration
+
+
+### `abstract-contracts.ts`
+
+Contract configuration containing addresses for both Abstract mainnet and testnet, along with complete ABIs for tokens (WETH, USDC, USDT) and Uniswap V2/V3 infrastructure.
+
+<ComponentSource src="registry/new-york/blocks/abstract-contracts/lib/abstract-contracts.ts" />
+
+#### Available Contracts
+
+**Tokens:**
+- `weth` - Wrapped Ether (WETH9)
+- `usdc` - USD Coin stablecoin
+- `usdt` - Tether USD stablecoin (mainnet only)
+
+**DEX Infrastructure:**
+- `uniswapV2Factory` - Uniswap V2 factory for pair creation
+- `uniswapV2Router` - Uniswap V2 router for swaps and liquidity
+- `uniswapV3Factory` - Uniswap V3 factory for pool creation
+- `quoterV2` - Uniswap V3 quoter for swap price quotes
+- `swapRouter02` - Uniswap V3 router for executing swaps
+
+### `chain-utils.ts`
+
+Utility functions for network-aware contract address resolution with automatic mainnet/testnet selection and error handling.
+
+<ComponentSource src="registry/new-york/blocks/abstract-contracts/lib/chain-utils.ts" />
+
+#### Utility Functions
+
+| Function | Description |
+| --- | --- |
+| `getContract(key, chainId)` | Get full contract info with address for specific chain |
+| `getContractWithCurrentChain(key)` | Get contract info using current chain configuration |
+| `getContractAddress(addresses, chainId)` | Get contract address for specific chain |
+| `getContractAddressWithCurrentChain(key)` | Get address using current chain configuration |
+| `findContract(key)` | Search for contract by key across all categories |
+| `isAbstractNetwork(chainId)` | Check if chain ID is Abstract mainnet or testnet |
+| `getNetworkName(chainId)` | Get human-readable network name |
+
+### `types/contracts.ts`
+
+TypeScript type definitions for contract configuration, network IDs, and utility function options.
+
+<ComponentSource src="types/contracts.ts" />

@@ -1,0 +1,145 @@
+---
+title: Onboarding Dialog
+description: A configurable multi-step onboarding dialog that guides users through AGW authentication steps with progress indication.
+---
+
+import { Steps, Step } from "@/components/ui/steps"
+
+<ComponentPreview name="onboarding-dialog" />
+
+## Installation
+
+The onboarding dialog has three optional phases. Install the components you need:
+
+<Steps className="mt-8">
+  <Step step={1} title="Required: Install the base onboarding dialog">
+  ```bash
+  npx shadcn@latest add "https://build.abs.xyz/r/onboarding-dialog.json"
+  ```
+  </Step>
+
+  <Step step={2} title="Required: Add the onboarding dialog to your layout">
+
+Add the `<Onboarder />` component to your `app/layout.tsx`:
+
+```tsx title="app/layout.tsx" showLineNumbers {2, 10}
+import { NextAbstractWalletProvider } from "@/components/agw-provider";
+import { Onboarder } from "@/components/onboarding-dialog";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <NextAbstractWalletProvider>
+        <body>
+          {children}
+          <Onboarder />
+        </body>
+      </NextAbstractWalletProvider>
+    </html>
+  );
+}
+```
+  </Step>
+</Steps>
+
+## Usage
+
+Use the `ready` flag and `require()` function from the `useOnboarding()` hook to gate actions behind onboarding requirements
+such as requiring a wallet connection, SIWE authentication, or session key creation.
+
+### `ready`
+
+The `ready` flag is `true` when all required steps are completed. Use this flag to conditionally render UI.
+
+```tsx
+"use client"
+
+import { useOnboarding } from "@/hooks/use-onboarding"
+
+export default function MyComponent() {
+  const { ready } = useOnboarding({
+    connectWallet: true,
+    signWithEthereum: true,
+    createSessionKey: true,
+  });
+
+  return <div>{ready ? "Ready" : "Not Ready"}</div>;
+}
+```
+
+### `require()`
+
+Call `require()` before any logic that requires the user to be in a "ready" state (e.g. wallet connected & authenticated).
+
+```tsx
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { useOnboarding } from "@/hooks/use-onboarding"
+
+export default function MyComponent() {
+  const { ready, require } = useOnboarding({
+    connectWallet: true,    // Phase 1: Wallet connection
+    signWithEthereum: true, // Phase 2: SIWE authentication
+    createSessionKey: true, // Phase 3: Session key creation
+  });
+
+  const handleProtectedAction = () => {
+    // This shows the onboarding dialog if your conditions are not met
+    if (!require()) return;
+    
+    // This code only runs if user is fully onboarded
+    console.log("Action executed!");
+  }
+
+  return (
+    <Button onClick={handleProtectedAction}>
+      {ready ? "Execute Action" : "Complete Onboarding First"}
+    </Button>
+  );
+}
+```
+
+### `showDialog()`
+
+Use `showDialog()` to manually trigger the onboarding dialog.
+
+_Note_: The dialog will not open if all steps are already completed.
+
+```tsx
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { useOnboarding } from "@/hooks/use-onboarding";
+
+export default function MyComponent() {
+  const { ready, isLoading, isError, showDialog } = useOnboarding({
+    connectWallet: true,
+    signWithEthereum: true,
+    createSessionKey: true,
+  });
+
+  if (isError) return <div>Error occurred during onboarding</div>;
+  if (isLoading) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <div>{ready ? "Ready" : "Not Ready"}</div>
+      {!ready && (
+        <Button onClick={showDialog} disabled={isLoading}>
+          {isLoading ? "Loading..." : "Show Dialog"}
+        </Button>
+      )}
+    </div>
+  );
+}
+```
+
+## Hook API
+
+The `useOnboarding()` hook returns the following:
+
+- `ready: boolean` - True when all required steps are completed
+- `pending: boolean` - True when the onboarding dialog is currently open
+- `require(): boolean` - Shows dialog if not ready, returns `true` if ready (use for early returns)
+- `showDialog(): void` - Manually show the onboarding dialog
