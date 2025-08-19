@@ -22,9 +22,11 @@ The onboarding dialog has three optional phases. Install the components you need
 
 Add the `<Onboarder />` component to your `app/layout.tsx`:
 
-```tsx title="app/layout.tsx" showLineNumbers {2, 10}
+```tsx title="app/layout.tsx" showLineNumbers {3, 12}
 import { NextAbstractWalletProvider } from "@/components/agw-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { Onboarder } from "@/components/onboarder";
+import "./globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body>
           {children}
           <Onboarder />
+          <Toaster />
         </body>
       </NextAbstractWalletProvider>
     </html>

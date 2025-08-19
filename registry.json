@@ -243,6 +243,7 @@
       "title": "Onboarding Dialog",
       "description": "A configurable multi-step onboarding dialog that guides users through AGW authentication (wallet connection, SIWE, session keys) with progress indication",
       "dependencies": [
+        "iron-session",
         "@abstract-foundation/agw-react",
         "@abstract-foundation/agw-client",
         "wagmi",
