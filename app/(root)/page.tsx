@@ -42,13 +42,14 @@ export default function IndexPage() {
           <div className="relative w-full max-w-[1600px] mx-auto h-full">
             {/* Glow effect positioned relative to demo content */}
             <div
-              className="absolute w-[1800px] h-[900px] rounded-full pointer-events-none"
+              className="absolute w-full max-w-[1800px] h-[50vh] max-h-[900px] rounded-full pointer-events-none"
               style={{
                 background: 'radial-gradient(ellipse 85% 60% at 50% 40%, rgb(from var(--primary) r g b / 0.3) 0%, rgb(from var(--primary) r g b / 0.15) 50%, transparent 75%)',
                 filter: 'blur(80px)',
                 animation: 'glowPulse 4s ease-in-out infinite',
                 left: '50%',
                 top: '-8%',
+                transform: 'translateX(-50%)',
                 zIndex: 0,
               }}
             />

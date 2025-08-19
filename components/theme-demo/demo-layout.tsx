@@ -11,7 +11,7 @@ import { Settings, Eye } from 'lucide-react';
 export function DemoLayout() {
 
   return (
-    <div className="w-full h-[calc(100vh-6rem)] rounded-lg border bg-background overflow-hidden">
+    <div className="w-full h-auto md:h-[calc(100vh-6rem)] rounded-lg border bg-background overflow-hidden">
       <DemoHeaderCTA />
       {/* Desktop Layout - Resizable */}
       <div className="hidden md:block h-[calc(100%-2.5rem)]">
@@ -27,7 +27,7 @@ export function DemoLayout() {
       </div>
 
       {/* Mobile Layout - Tabs */}
-      <div className="md:hidden h-[calc(100%-2.5rem)]">
+      <div className="md:hidden h-auto min-h-[calc(100%-2.5rem)]">
         <Tabs defaultValue="preview" className="h-full flex flex-col">
           <div className="border-b p-2">
             <TabsList className="grid w-full grid-cols-2">

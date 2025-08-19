@@ -23,7 +23,7 @@ function ComponentShowcase() {
   const { address, isConnected } = useAccount();
 
   return (
-    <div className="columns-1 lg:columns-2 gap-4 space-y-4">
+    <div className="columns-1 xl:columns-2 gap-4 space-y-4">
       {/* Connect Wallet - Enhanced with Profile */}
       <Card className="w-full break-inside-avoid mb-4 relative gap-0">
         <CardHeader className="pb-2">
