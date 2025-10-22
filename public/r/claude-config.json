@@ -3,6 +3,7 @@
   "name": "claude-config",
   "type": "registry:lib",
   "title": "Claude Code Configuration",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "Claude Code project instructions and MCP server configuration optimized for Abstract ecosystem development with AGW, wagmi, and Next.js",
   "dependencies": [],
   "registryDependencies": [],

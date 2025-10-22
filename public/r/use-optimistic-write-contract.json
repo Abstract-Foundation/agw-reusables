@@ -3,6 +3,7 @@
   "name": "use-optimistic-write-contract",
   "type": "registry:hook",
   "title": "Optimistic Transactions",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "An experimental hook for optimistic transaction execution using Abstract's unstable_sendRawTransactionWithDetailedOutput endpoint to get instant transaction feedback",
   "dependencies": [
     "wagmi",

@@ -3,6 +3,7 @@
   "name": "abstract-profile",
   "type": "registry:component",
   "title": "Abstract Profile",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "A profile component that displays user profile pictures from Abstract Portal with tier-based styling and loading states",
   "dependencies": [
     "@tanstack/react-query",

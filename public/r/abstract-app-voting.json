@@ -3,6 +3,7 @@
   "name": "abstract-app-voting",
   "type": "registry:component",
   "title": "Abstract App Voting",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "A voting button for Abstract apps that checks vote status and submits votes via Abstract Global Wallet",
   "dependencies": [
     "@abstract-foundation/agw-react",

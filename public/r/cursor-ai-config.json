@@ -3,6 +3,7 @@
   "name": "cursor-ai-config",
   "type": "registry:lib",
   "title": "Cursor AI Configuration",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "Cursor project rules and MCP configuration optimized for Abstract ecosystem development with AGW, wagmi, and Next.js",
   "dependencies": [],
   "registryDependencies": [],

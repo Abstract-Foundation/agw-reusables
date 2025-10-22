@@ -3,6 +3,7 @@
   "name": "session-keys",
   "type": "registry:component",
   "title": "Session Key Button",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "A comprehensive session key management button that handles creation, validation, and revocation of Abstract Global Wallet session keys",
   "dependencies": [
     "@abstract-foundation/agw-react",

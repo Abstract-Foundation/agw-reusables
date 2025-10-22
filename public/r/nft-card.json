@@ -3,6 +3,7 @@
   "name": "nft-card",
   "type": "registry:component",
   "title": "NFT Card",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "A single NFT card component that displays an NFT with image, name, collection, and balance",
   "dependencies": [],
   "registryDependencies": [

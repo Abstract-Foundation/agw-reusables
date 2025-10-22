@@ -3,6 +3,7 @@
   "name": "portfolio-chart",
   "type": "registry:component",
   "title": "Portfolio Chart",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "An interactive area chart that displays Abstract Global Wallet portfolio value over time with multiple time period selections",
   "dependencies": [
     "@tanstack/react-query",

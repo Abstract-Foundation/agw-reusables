@@ -3,6 +3,7 @@
   "name": "siwe-button",
   "type": "registry:component",
   "title": "SIWE Button",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "A streamlined SIWE authentication button that handles wallet connection, message signing, and authentication state",
   "dependencies": [
     "iron-session",

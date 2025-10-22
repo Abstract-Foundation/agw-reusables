@@ -3,6 +3,7 @@
   "name": "abstract-contracts",
   "type": "registry:lib",
   "title": "Abstract Contracts",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "Configuration for common Abstract network contract addresses and ABIs for tokens and DEX infrastructure",
   "dependencies": [],
   "registryDependencies": [],

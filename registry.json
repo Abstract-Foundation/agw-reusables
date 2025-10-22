@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "agw-reusables",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "homepage": "https://build.abs.xyz",
   "items": [
     {
@@ -15,21 +16,33 @@
         "viem",
         "@tanstack/react-query"
       ],
-      "registryDependencies": ["button", "dropdown-menu"],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/connect-wallet-button/connect-wallet-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "abstract-profile",
       "type": "registry:component",
       "title": "Abstract Profile",
       "description": "A profile component that displays user profile pictures from Abstract Portal with tier-based styling and loading states",
-      "dependencies": ["@tanstack/react-query", "wagmi", "viem"],
-      "registryDependencies": ["avatar", "tooltip", "skeleton"],
+      "dependencies": [
+        "@tanstack/react-query",
+        "wagmi",
+        "viem"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "tooltip",
+        "skeleton"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/abstract-profile/abstract-profile.tsx",
@@ -56,7 +69,8 @@
           "type": "registry:page",
           "target": "app/api/user-profile/[address]/route.ts"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "agw-provider",
@@ -70,7 +84,9 @@
         "viem",
         "@tanstack/react-query"
       ],
-      "registryDependencies": ["sonner"],
+      "registryDependencies": [
+        "sonner"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/agw-provider/agw-provider.tsx",
@@ -86,7 +102,8 @@
           "type": "registry:lib",
           "target": "config/viem-clients.ts"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "siwe-button",
@@ -100,7 +117,12 @@
         "@tanstack/react-query",
         "sonner"
       ],
-      "registryDependencies": ["button", "card", "sonner", "dropdown-menu"],
+      "registryDependencies": [
+        "button",
+        "card",
+        "sonner",
+        "dropdown-menu"
+      ],
       "envVars": {
         "IRON_SESSION_PASSWORD": ""
       },
@@ -164,7 +186,8 @@
           "type": "registry:page",
           "target": "app/api/auth/logout/route.ts"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "session-keys",
@@ -179,7 +202,10 @@
         "@tanstack/react-query",
         "sonner"
       ],
-      "registryDependencies": ["button", "dropdown-menu"],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/session-keys/session-key-button.tsx",
@@ -235,7 +261,8 @@
           "path": "registry/new-york/blocks/connect-wallet-button/connect-wallet-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "onboarding-dialog",
@@ -250,7 +277,12 @@
         "viem",
         "@tanstack/react-query"
       ],
-      "registryDependencies": ["dropdown-menu", "dialog", "button", "sonner"],
+      "registryDependencies": [
+        "dropdown-menu",
+        "dialog",
+        "button",
+        "sonner"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/onboarding-dialog/onboarding-dialog.tsx",
@@ -389,15 +421,24 @@
           "path": "registry/new-york/blocks/connect-wallet-button/connect-wallet-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "portfolio-chart",
       "type": "registry:component",
       "title": "Portfolio Chart",
       "description": "An interactive area chart that displays Abstract Global Wallet portfolio value over time with multiple time period selections",
-      "dependencies": ["@tanstack/react-query", "recharts", "date-fns"],
-      "registryDependencies": ["chart", "button", "skeleton"],
+      "dependencies": [
+        "@tanstack/react-query",
+        "recharts",
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "chart",
+        "button",
+        "skeleton"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/portfolio-chart/portfolio-chart.tsx",
@@ -416,14 +457,19 @@
           "type": "registry:lib",
           "target": "app/api/user-portfolio/[address]/route.ts"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "use-optimistic-write-contract",
       "type": "registry:hook",
       "title": "Optimistic Transactions",
       "description": "An experimental hook for optimistic transaction execution using Abstract's unstable_sendRawTransactionWithDetailedOutput endpoint to get instant transaction feedback",
-      "dependencies": ["wagmi", "viem", "@tanstack/react-query"],
+      "dependencies": [
+        "wagmi",
+        "viem",
+        "@tanstack/react-query"
+      ],
       "registryDependencies": [],
       "files": [
         {
@@ -439,7 +485,8 @@
           "path": "registry/new-york/blocks/use-optimistic-write-contract/lib/abstract-api.ts",
           "type": "registry:lib"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "abstract-contracts",
@@ -463,7 +510,8 @@
           "path": "registry/new-york/blocks/abstract-contracts/lib/chain-utils.ts",
           "type": "registry:lib"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "abstract-app-voting",
@@ -477,7 +525,9 @@
         "viem",
         "@tanstack/react-query"
       ],
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/abstract-voting-button/abstract-voting-button.tsx",
@@ -499,7 +549,8 @@
           "path": "registry/new-york/blocks/abstract-voting-button/lib/voting-utils.ts",
           "type": "registry:lib"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "nft-card",
@@ -507,7 +558,11 @@
       "title": "NFT Card",
       "description": "A single NFT card component that displays an NFT with image, name, collection, and balance",
       "dependencies": [],
-      "registryDependencies": ["card", "badge", "aspect-ratio"],
+      "registryDependencies": [
+        "card",
+        "badge",
+        "aspect-ratio"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/nft-card/nft-card.tsx",
@@ -527,7 +582,8 @@
           "type": "registry:lib",
           "target": "types/nfts.ts"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "cursor-ai-config",
@@ -562,7 +618,8 @@
           "type": "registry:lib",
           "target": ".cursor/mcp.json"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     },
     {
       "name": "claude-config",
@@ -582,7 +639,8 @@
           "type": "registry:lib",
           "target": ".claude/settings.json"
         }
-      ]
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
     }
   ]
 }

@@ -3,6 +3,7 @@
   "name": "agw-provider",
   "type": "registry:component",
   "title": "AGW Provider",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
   "description": "Provider component that wraps your application with Abstract Global Wallet and React Query",
   "dependencies": [
     "@abstract-foundation/agw-react",
