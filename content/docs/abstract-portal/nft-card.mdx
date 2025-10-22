@@ -21,7 +21,7 @@ import { NFTCard } from "@/components/nft-card"
 import { useNFTs } from "@/hooks/use-nfts"
 
 export default function FirstNFT() {
-  const address = "0x1C67724aCc76821C8aD1f1F87BA2751631BAbD0c"
+  const address = "0x06639F064b82595F3BE7621F607F8e8726852fCf"
   const { data, isLoading, error } = useNFTs(address)
   
   if (isLoading) return <div>Loading NFT...</div>

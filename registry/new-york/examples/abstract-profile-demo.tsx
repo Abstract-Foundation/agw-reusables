@@ -101,7 +101,7 @@ function PlayerCard({ address }: { address: string }) {
 
 export default function AbstractProfileDemo() {
   const { address: connectedAddress } = useAccount();
-  const defaultAddress = "0x1C67724aCc76821C8aD1f1F87BA2751631BAbD0c";
+  const defaultAddress = "0x06639F064b82595F3BE7621F607F8e8726852fCf";
   
   return <PlayerCard address={connectedAddress || defaultAddress} />;
 }
