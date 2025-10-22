@@ -1,0 +1,646 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "agw-reusables",
+  "author": "Abstract Foundation (https://build.abs.xyz)",
+  "homepage": "https://build.abs.xyz",
+  "items": [
+    {
+      "name": "connect-wallet-button",
+      "type": "registry:component",
+      "title": "Connect Wallet Button",
+      "description": "A connect wallet button using Abstract Global Wallet with dropdown menu when connected",
+      "dependencies": [
+        "@abstract-foundation/agw-react",
+        "@abstract-foundation/agw-client",
+        "wagmi",
+        "viem",
+        "@tanstack/react-query"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/connect-wallet-button/connect-wallet-button.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "abstract-profile",
+      "type": "registry:component",
+      "title": "Abstract Profile",
+      "description": "A profile component that displays user profile pictures from Abstract Portal with tier-based styling and loading states",
+      "dependencies": [
+        "@tanstack/react-query",
+        "wagmi",
+        "viem"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "tooltip",
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/abstract-profile/abstract-profile.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-profile/hooks/use-abstract-profile.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-profile/lib/tier-colors.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-profile/lib/address-utils.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-profile/lib/get-user-profile.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "app/api/user-profile/[address]/route.ts",
+          "type": "registry:page",
+          "target": "app/api/user-profile/[address]/route.ts"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "agw-provider",
+      "type": "registry:component",
+      "title": "AGW Provider",
+      "description": "Provider component that wraps your application with Abstract Global Wallet and React Query",
+      "dependencies": [
+        "@abstract-foundation/agw-react",
+        "@abstract-foundation/agw-client",
+        "wagmi",
+        "viem",
+        "@tanstack/react-query"
+      ],
+      "registryDependencies": [
+        "sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/agw-provider/agw-provider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "config/chain.ts",
+          "type": "registry:lib",
+          "target": "config/chain.ts"
+        },
+        {
+          "path": "config/viem-clients.ts",
+          "type": "registry:lib",
+          "target": "config/viem-clients.ts"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "siwe-button",
+      "type": "registry:component",
+      "title": "SIWE Button",
+      "description": "A streamlined SIWE authentication button that handles wallet connection, message signing, and authentication state",
+      "dependencies": [
+        "iron-session",
+        "viem",
+        "wagmi",
+        "@tanstack/react-query",
+        "sonner"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "sonner",
+        "dropdown-menu"
+      ],
+      "envVars": {
+        "IRON_SESSION_PASSWORD": ""
+      },
+      "files": [
+        {
+          "path": "registry/new-york/blocks/connect-wallet-button/connect-wallet-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/siwe-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/hooks/use-siwe-auth-query.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/hooks/use-siwe-sign-in-mutation.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/hooks/use-siwe-logout-mutation.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "types/siwe-auth.ts",
+          "type": "registry:lib",
+          "target": "types/siwe-auth.ts"
+        },
+        {
+          "path": "config/auth.ts",
+          "type": "registry:lib",
+          "target": "config/auth.ts"
+        },
+        {
+          "path": "config/chain.ts",
+          "type": "registry:lib",
+          "target": "config/chain.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/lib/auth-server.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "app/api/auth/nonce/route.ts",
+          "type": "registry:page",
+          "target": "app/api/auth/nonce/route.ts"
+        },
+        {
+          "path": "app/api/auth/verify/route.ts",
+          "type": "registry:page",
+          "target": "app/api/auth/verify/route.ts"
+        },
+        {
+          "path": "app/api/auth/user/route.ts",
+          "type": "registry:page",
+          "target": "app/api/auth/user/route.ts"
+        },
+        {
+          "path": "app/api/auth/logout/route.ts",
+          "type": "registry:page",
+          "target": "app/api/auth/logout/route.ts"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "session-keys",
+      "type": "registry:component",
+      "title": "Session Key Button",
+      "description": "A comprehensive session key management button that handles creation, validation, and revocation of Abstract Global Wallet session keys",
+      "dependencies": [
+        "@abstract-foundation/agw-react",
+        "@abstract-foundation/agw-client",
+        "wagmi",
+        "viem",
+        "@tanstack/react-query",
+        "sonner"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/session-keys/session-key-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/hooks/use-session-key.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/hooks/use-create-session-key.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/hooks/use-revoke-session-key.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/hooks/use-session-key-transaction.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/get-stored-session-key.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/create-and-store-session-key.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/clear-stored-session-key.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/session-encryption-utils.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/validate-session-key.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "config/session-key-policies.ts",
+          "type": "registry:lib",
+          "target": "config/session-key-policies.ts"
+        },
+        {
+          "path": "config/viem-clients.ts",
+          "type": "registry:lib",
+          "target": "config/viem-clients.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/connect-wallet-button/connect-wallet-button.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "onboarding-dialog",
+      "type": "registry:component",
+      "title": "Onboarding Dialog",
+      "description": "A configurable multi-step onboarding dialog that guides users through AGW authentication (wallet connection, SIWE, session keys) with progress indication",
+      "dependencies": [
+        "iron-session",
+        "@abstract-foundation/agw-react",
+        "@abstract-foundation/agw-client",
+        "wagmi",
+        "viem",
+        "@tanstack/react-query"
+      ],
+      "registryDependencies": [
+        "dropdown-menu",
+        "dialog",
+        "button",
+        "sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/onboarding-dialog/onboarding-dialog.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/onboarding-dialog/hooks/use-onboarding.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/onboarding-dialog/lib/require-onboarding.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/onboarding-dialog/lib/onboarding-context.tsx",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/onboarding-dialog/onboarder.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/connect-wallet-button/connect-wallet-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/siwe-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/hooks/use-siwe-auth-query.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/hooks/use-siwe-sign-in-mutation.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/hooks/use-siwe-logout-mutation.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "types/siwe-auth.ts",
+          "type": "registry:lib",
+          "target": "types/siwe-auth.ts"
+        },
+        {
+          "path": "config/auth.ts",
+          "type": "registry:lib",
+          "target": "config/auth.ts"
+        },
+        {
+          "path": "config/chain.ts",
+          "type": "registry:lib",
+          "target": "config/chain.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/siwe-button/lib/auth-server.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "app/api/auth/nonce/route.ts",
+          "type": "registry:page",
+          "target": "app/api/auth/nonce/route.ts"
+        },
+        {
+          "path": "app/api/auth/verify/route.ts",
+          "type": "registry:page",
+          "target": "app/api/auth/verify/route.ts"
+        },
+        {
+          "path": "app/api/auth/user/route.ts",
+          "type": "registry:page",
+          "target": "app/api/auth/user/route.ts"
+        },
+        {
+          "path": "app/api/auth/logout/route.ts",
+          "type": "registry:page",
+          "target": "app/api/auth/logout/route.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/onboarding-dialog/onboarding-dialog.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/session-key-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/hooks/use-session-key.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/hooks/use-create-session-key.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/hooks/use-revoke-session-key.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/hooks/use-session-key-transaction.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/get-stored-session-key.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/create-and-store-session-key.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/clear-stored-session-key.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/session-encryption-utils.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/session-keys/lib/validate-session-key.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "config/session-key-policies.ts",
+          "type": "registry:lib",
+          "target": "config/session-key-policies.ts"
+        },
+        {
+          "path": "config/viem-clients.ts",
+          "type": "registry:lib",
+          "target": "config/viem-clients.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/connect-wallet-button/connect-wallet-button.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "portfolio-chart",
+      "type": "registry:component",
+      "title": "Portfolio Chart",
+      "description": "An interactive area chart that displays Abstract Global Wallet portfolio value over time with multiple time period selections",
+      "dependencies": [
+        "@tanstack/react-query",
+        "recharts",
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "chart",
+        "button",
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/portfolio-chart/portfolio-chart.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/portfolio-chart/hooks/use-portfolio-data.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/portfolio-chart/lib/portfolio-utils.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "app/api/user-portfolio/[address]/route.ts",
+          "type": "registry:lib",
+          "target": "app/api/user-portfolio/[address]/route.ts"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "use-optimistic-write-contract",
+      "type": "registry:hook",
+      "title": "Optimistic Transactions",
+      "description": "An experimental hook for optimistic transaction execution using Abstract's unstable_sendRawTransactionWithDetailedOutput endpoint to get instant transaction feedback",
+      "dependencies": [
+        "wagmi",
+        "viem",
+        "@tanstack/react-query"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/use-optimistic-write-contract/hooks/use-optimistic-write-contract.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "types/optimistic-transactions.ts",
+          "type": "registry:lib",
+          "target": "types/optimistic-transactions.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/use-optimistic-write-contract/lib/abstract-api.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "abstract-contracts",
+      "type": "registry:lib",
+      "title": "Abstract Contracts",
+      "description": "Configuration for common Abstract network contract addresses and ABIs for tokens and DEX infrastructure",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "types/contracts.ts",
+          "type": "registry:lib",
+          "target": "types/contracts.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-contracts/lib/abstract-contracts.ts",
+          "type": "registry:lib",
+          "target": "config/abstract-contracts.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-contracts/lib/chain-utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "abstract-app-voting",
+      "type": "registry:component",
+      "title": "Abstract App Voting",
+      "description": "A voting button for Abstract apps that checks vote status and submits votes via Abstract Global Wallet",
+      "dependencies": [
+        "@abstract-foundation/agw-react",
+        "@abstract-foundation/agw-client",
+        "wagmi",
+        "viem",
+        "@tanstack/react-query"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/abstract-voting-button/abstract-voting-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-voting-button/hooks/use-user-vote-status.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-voting-button/hooks/use-vote-for-app.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-voting-button/lib/voting-contract.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york/blocks/abstract-voting-button/lib/voting-utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "nft-card",
+      "type": "registry:component",
+      "title": "NFT Card",
+      "description": "A single NFT card component that displays an NFT with image, name, collection, and balance",
+      "dependencies": [],
+      "registryDependencies": [
+        "card",
+        "badge",
+        "aspect-ratio"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/nft-card/nft-card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/nft-card/hooks/use-nfts.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "app/api/user-nfts/[address]/route.ts",
+          "type": "registry:lib",
+          "target": "app/api/user-nfts/[address]/route.ts"
+        },
+        {
+          "path": "types/nfts.ts",
+          "type": "registry:lib",
+          "target": "types/nfts.ts"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "cursor-ai-config",
+      "type": "registry:lib",
+      "title": "Cursor AI Configuration",
+      "description": "Cursor project rules and MCP configuration optimized for Abstract ecosystem development with AGW, wagmi, and Next.js",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/lib/.cursor/rules/abstract.mdc",
+          "type": "registry:lib",
+          "target": ".cursor/rules/abstract.mdc"
+        },
+        {
+          "path": "registry/new-york/lib/.cursor/rules/agw-reusables.mdc",
+          "type": "registry:lib",
+          "target": ".cursor/rules/agw-reusables.mdc"
+        },
+        {
+          "path": "registry/new-york/lib/.cursor/rules/session-keys.mdc",
+          "type": "registry:lib",
+          "target": ".cursor/rules/session-keys.mdc"
+        },
+        {
+          "path": "registry/new-york/lib/.cursor/rules/shadcn.mdc",
+          "type": "registry:lib",
+          "target": ".cursor/rules/shadcn.mdc"
+        },
+        {
+          "path": "registry/new-york/lib/.cursor/mcp.json",
+          "type": "registry:lib",
+          "target": ".cursor/mcp.json"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    },
+    {
+      "name": "claude-config",
+      "type": "registry:lib",
+      "title": "Claude Code Configuration",
+      "description": "Claude Code project instructions and MCP server configuration optimized for Abstract ecosystem development with AGW, wagmi, and Next.js",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/lib/.claude/CLAUDE.md",
+          "type": "registry:lib",
+          "target": "CLAUDE.md"
+        },
+        {
+          "path": "registry/new-york/lib/.claude/settings.json",
+          "type": "registry:lib",
+          "target": ".claude/settings.json"
+        }
+      ],
+      "author": "Abstract Foundation (https://build.abs.xyz)"
+    }
+  ]
+}
